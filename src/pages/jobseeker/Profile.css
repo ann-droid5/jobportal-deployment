@@ -1,0 +1,18 @@
+.profile-page {
+  max-width: 1000px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.profile-meter .progress {
+  height: 8px;
+}
+
+.profile-meter .progress-bar {
+  background-color: #00a5ec;
+}
+

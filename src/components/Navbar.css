@@ -1,0 +1,130 @@
+.custom-navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+  padding: 10px 20px;
+  
+}
+.navbar-logo {
+  height: 36px;       /* perfect navbar size */
+  width: auto;
+  margin-right: 8px;
+}
+
+.brand-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #008BDC;
+}
+
+
+.brand-text {
+  font-weight: 700;
+  color: #008BDC;
+  font-size: 22px;
+}
+
+.nav-link {
+  color: #333;
+  font-weight: 500;
+  margin-right: 18px;
+}
+
+.nav-link:hover {
+  color: #008BDC;
+}
+
+
+.login-link {
+  text-decoration: none;
+  color: #008BDC;
+  font-weight: 500;
+}
+
+.register-btn {
+  background-color: #008BDC;
+  border: none;
+  padding: 6px 16px;
+  font-weight: 500;
+}
+
+.login-btn{
+    font-size: 14px;
+    line-height: 1.14285714;
+    font-weight: 600;
+    border: 1px solid #008BDC;
+    padding: 7px 20px;
+    background-color: transparent;
+    color: #008BDC;
+    border-radius: 4px;
+}
+.login-btn:hover {
+  background-color: #008BDC;
+  color: #ffffff;
+}
+.nav-cta-container{
+    
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+
+}
+.employer-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: #008BDC;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.employer-link span {
+  font-size: 18px;
+  margin-left: 4px;
+}
+
+
+.search-form {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  border-radius: 999px; /* FULLY ROUNDED */
+  padding: 6px 14px;
+  background-color: #fff;
+}
+
+/* Search icon */
+.search-icon {
+  font-size: 14px;
+  color: #777;
+  margin-right: 6px;
+}
+
+/* Input */
+.search-input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 120px;
+}
+
+/* Optional focus effect */
+.search-form:focus-within {
+  border-color: #008BDC;
+}
+.header_vertical_partition{
+  width: 1px;
+    height: 32px;
+    margin: 0 8px;
+    background: #EEE;
+}
+
+
+.employer-link .bi-chevron-right {
+  color: #008BDC;   /* Internshala blue */
+  font-size: 16px;
+  margin-left: 4px;
+}

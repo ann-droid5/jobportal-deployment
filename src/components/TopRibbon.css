@@ -1,0 +1,19 @@
+.top-ribbon {
+  background: linear-gradient(90deg, #008BDC, #005bb5);
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+.top-ribbon a {
+  color: #fff;
+  font-weight: 600;
+  margin-left: 6px;
+  text-decoration: underline;
+}
+
+.top-ribbon a:hover {
+  text-decoration: none;
+}

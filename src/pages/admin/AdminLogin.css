@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ─────────────────────────────────────────────
+   WRAPPER  – full-screen split layout
+───────────────────────────────────────────── */
+.al-wrapper {
+    min-height: 100vh;
+    display: flex;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ─────────────────────────────────────────────
+   LEFT PANEL – illustration / brand
+───────────────────────────────────────────── */
+.al-left {
+    flex: 0 0 55%;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 45%, #1e40af 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 40px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle decorative circle in the bg */
+.al-left::before {
+    content: '';
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    top: -120px;
+    right: -100px;
+    pointer-events: none;
+}
+
+.al-left::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    bottom: -80px;
+    left: -60px;
+    pointer-events: none;
+}
+
+/* brand / logo row */
+.al-left-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    align-self: flex-start;
+    z-index: 1;
+}
+
+/* illustration svg */
+.al-illustration {
+    width: 100%;
+    max-width: 480px;
+    z-index: 1;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+}
+
+/* tagline */
+.al-left-text {
+    text-align: center;
+    z-index: 1;
+    color: white;
+}
+
+.al-left-text h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.al-left-text p {
+    font-size: 0.9rem;
+    opacity: 0.82;
+    line-height: 1.6;
+    max-width: 340px;
+    margin: 0 auto;
+}
+
+/* slide indicator dots */
+.al-dots {
+    display: flex;
+    gap: 8px;
+    z-index: 1;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s;
+}
+
+.dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background: white;
+}
+
+/* ─────────────────────────────────────────────
+   RIGHT PANEL – login form
+───────────────────────────────────────────── */
+.al-right {
+    flex: 0 0 45%;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 32px;
+}
+
+.al-form-container {
+    width: 100%;
+    max-width: 380px;
+}
+
+/* header */
+.al-badge {
+    display: inline-block;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+}
+
+.al-form-header {
+    margin-bottom: 32px;
+}
+
+.al-form-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 6px;
+    line-height: 1.2;
+}
+
+.al-form-header p {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* ─────────────────────────────────────────────
+   INPUT FIELDS
+───────────────────────────────────────────── */
+.al-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.al-field {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.al-field input {
+    width: 100%;
+    padding: 13px 44px 13px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.al-field input::placeholder {
+    color: #94a3b8;
+}
+
+.al-field input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* icon / eye button inside input */
+.al-field-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.al-eye-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    pointer-events: auto;
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.al-eye-btn:hover {
+    color: #2563eb;
+}
+
+/* forgot password */
+.al-forgot-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 24px;
+    margin-top: -6px;
+}
+
+.al-forgot {
+    font-size: 0.82rem;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.al-forgot:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────────
+   SUBMIT BUTTON
+───────────────────────────────────────────── */
+.al-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.01em;
+}
+
+.al-submit-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+.al-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.al-submit-btn:disabled {
+    background: #94a3b8;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────
+   FOOTER LINK
+───────────────────────────────────────────── */
+.al-form-footer {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #e9eef5;
+}
+
+.al-form-footer a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.al-form-footer a:hover {
+    color: #2563eb;
+}
+
+/* ─────────────────────────────────────────────
+   LOADER SPINNER
+───────────────────────────────────────────── */
+.al-loader {
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    animation: al-spin 0.75s linear infinite;
+}
+
+@keyframes al-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE – stack on small screens
+───────────────────────────────────────────── */
+@media (max-width: 860px) {
+    .al-wrapper {
+        flex-direction: column;
+    }
+
+    .al-left {
+        flex: none;
+        padding: 28px 24px 24px;
+        min-height: 300px;
+    }
+
+    .al-illustration {
+        max-width: 320px;
+    }
+
+    .al-right {
+        flex: none;
+        padding: 36px 20px;
+    }
+
+    .al-form-container {
+        max-width: 100%;
+    }
+}

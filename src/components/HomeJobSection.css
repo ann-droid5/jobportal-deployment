@@ -1,0 +1,167 @@
+.home-job-section {
+  padding: 40px 0;
+}
+
+.home-job-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.home-job-section h4 {
+  font-size: 1.25rem;
+  color: #666;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+/* Category Pills */
+.category-pills .btn {
+  border: 1px solid #e0e0e0;
+  color: #555;
+  background: #fff;
+  padding: 8px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.category-pills .btn:hover {
+  border-color: #007bff;
+  color: #007bff;
+  background: #f8f9fa;
+}
+
+.category-pills .btn.active {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+}
+
+/* Job Card Styling */
+.job-card-wrapper {
+  padding: 10px;
+}
+
+.custom-job-card {
+  background: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 24px;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.custom-job-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-color: transparent;
+}
+
+.custom-job-card .badge {
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  margin-bottom: 12px;
+}
+
+.custom-job-card h6 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+
+.custom-job-card .company-name {
+  font-size: 0.95rem;
+  color: #7f8c8d;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.job-details p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.job-details i {
+  color: #007bff;
+}
+
+.card-footer-custom {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-view-details {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.btn-view-details:hover {
+  color: #0056b3;
+}
+
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: #007bff;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) grayscale(100);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+  filter: invert(0) grayscale(100) brightness(200%);
+}
+
+.carousel-control-prev {
+  left: -20px;
+}
+
+.carousel-control-next {
+  right: -20px;
+}
+
+@media (max-width: 768px) {
+  .carousel-control-prev {
+    left: 0;
+  }
+
+  .carousel-control-next {
+    right: 0;
+  }
+}

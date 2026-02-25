@@ -1,0 +1,107 @@
+.logo-strip-container {
+    background-color: #004d99;
+    /* Deep blue similar to Internshala */
+    height: 80px;
+    width: 100%;
+    overflow: hidden;
+    color: white;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.stat-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 20px;
+    min-width: 120px;
+    z-index: 10;
+    background-color: #004d99;
+    /* Cover the scrolling items appearing behind */
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.separator {
+    width: 2px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin-right: 20px;
+    z-index: 10;
+}
+
+.marquee-wrapper {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    align-items: center;
+    animation: scroll 30s linear infinite;
+    width: max-content;
+}
+
+.company-logo-item {
+    margin: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.company-logo-img {
+    height: 30px;
+    width: auto;
+    filter: brightness(0) invert(1) opacity(0.8);
+    /* Make logos white and slightly transparent */
+    transition: all 0.3s ease;
+}
+
+.company-logo-img:hover {
+    filter: brightness(0) invert(1) opacity(1);
+    transform: scale(1.1);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+        /* Move half the length since we duplicated the list */
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .logo-strip-container {
+        height: 60px;
+    }
+
+    .stat-number {
+        font-size: 1.4rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .company-logo-img {
+        height: 20px;
+        margin: 0 15px;
+    }
+}
