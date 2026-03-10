@@ -6,7 +6,9 @@ const cors = require("cors");
 const app = express();
 
 // middlewares
-app.use(cors());
+app.use(cors({
+  origin: "https://jobportal-deployment.vercel.app/"
+}));
 app.use(express.json());
 
 // routes
