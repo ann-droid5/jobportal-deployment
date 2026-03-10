@@ -7,8 +7,9 @@ import Navbar from './components/Navbar'
 import LoginModal from './components/LoginModal'
 // import RegisterModal from './components/RegisterModal'
 // import EmployerRegisterModal from './components/EmployerRegisterModal'
-import EmployerSignup from './pages/employer/EmployerSignup'
-import Home from './pages/Home'
+import EmployerSignup from './pages/employer/EmployerSignup';
+import EmployerLogin from './pages/employer/EmployerLogin';
+import Home from './pages/Home';
 import Jobs from './pages/Jobs'
 import JobDetails from "./pages/JobDetails";
 
@@ -24,8 +25,6 @@ import ManageJobs from "./pages/employer/ManageJobs";
 import Applicants from "./pages/employer/Applicants";
 
 // Admin
-import AdminLogin from "./pages/admin/AdminLogin";
-
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageUsers from "./pages/admin/ManageUsers";
 import AdminJobs from "./pages/admin/ManageJobs";
@@ -55,7 +54,7 @@ function App() {
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/signup" element={<Signup setRole={setRole} />} />
           <Route path="/employer/signup" element={<EmployerSignup setRole={setRole} />} />
-          <Route path="/admin-login" element={<AdminLogin setRole={setRole} />} />
+          <Route path="/employer/login" element={<EmployerLogin setRole={setRole} />} />
           <Route path="/jobs/:id" element={<JobDetails />} />
 
           {/* Job Seeker */}

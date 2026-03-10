@@ -1,30 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./HomeJobSection.css"; // Import the new CSS file
+import api from "../api/axios";
+import "./HomeJobSection.css";
 
 function HomeJobSection() {
-  const categories = [
-    "All", "Big brands", "Work from home", "MBA", "Engineering", "Media", "Design", "Data Science"
-  ];
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const jobs = [
-    { id: 1, title: "E-commerce Sales Executive", company: "603 CoWorking", location: "Mumbai", salary: "₹2–2.2 LPA", category: "Big brands" },
-    { id: 2, title: "Customer Service Associate", company: "Bharti AXA", location: "Chandigarh", salary: "₹2–2.5 LPA", category: "Big brands" },
-    { id: 3, title: "Accountant", company: "ZUCOL", location: "Jaipur", salary: "₹2–2.5 LPA", category: "MBA" },
-    { id: 4, title: "Frontend Developer", company: "Tech Mahindra", location: "Bangalore", salary: "₹3–4 LPA", category: "Engineering" },
-    { id: 5, title: "UI/UX Designer", company: "Creative Minds", location: "Remote", salary: "₹2.5–3.5 LPA", category: "Design" },
-    { id: 6, title: "Data Analyst Intern", company: "Analytics Hub", location: "Remote", salary: "₹20k/month", category: "Data Science" },
-    { id: 7, title: "HR Recruiter", company: "Talent Bridge", location: "Pune", salary: "₹2–2.6 LPA", category: "MBA" },
-    { id: 8, title: "Java Developer", company: "Infosys", location: "Hyderabad", salary: "₹3.5–4.5 LPA", category: "Engineering" },
-    { id: 9, title: "Content Writer", company: "WriteSmart", location: "WFH", salary: "₹18k/month", category: "Work from home" }
+  // Adjusted categories to match common DB fields or types
+  const categories = [
+    "All", "Full-time", "Internship", "Part-time", "Remote"
   ];
 
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filteredJobs =
-    activeCategory === "All"
-      ? jobs
-      : jobs.filter(job => job.category === activeCategory);
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await api.get("/jobs");
+        setJobs(res.data);
+      } catch (error) {
+        console.error("Failed to fetch jobs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchJobs();
+  }, []);
+
+  const filteredJobs = jobs.filter(job => {
+    if (activeCategory === "All") return true;
+    if (activeCategory === "Remote") {
+      return job.location?.toLowerCase().includes("remote") || job.location?.toLowerCase().includes("wfh");
+    }
+    return job.type === activeCategory;
+  });
 
   // Split jobs into chunks of 4 for carousel slides
   const chunkSize = 4;
@@ -55,59 +65,72 @@ function HomeJobSection() {
           ))}
         </div>
 
-        {/* Carousel */}
-        {filteredJobs.length > 0 ? (
-          <div id="jobCarousel" className="carousel slide" data-bs-ride="carousel">
-            <div className="carousel-inner px-2 py-3"> {/* Added padding for hover effects */}
-              {slides.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`carousel-item ${index === 0 ? "active" : ""}`}
-                >
-                  <div className="row">
-                    {slide.map(job => (
-                      <div key={job.id} className="col-12 col-sm-6 col-lg-3">
-                        <div className="job-card-wrapper h-100">
-                          <div className="custom-job-card h-100 d-flex flex-column">
-                            <span className="badge bg-primary bg-opacity-10 text-primary w-auto me-auto mb-3">Actively Hiring</span>
-                            <h6>{job.title}</h6>
-                            <p className="company-name">{job.company}</p>
+        {/* Loading State */}
+        {loading ? (
+          <div className="text-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          /* Carousel */
+          filteredJobs.length > 0 ? (
+            <div id="jobCarousel" className="carousel slide" data-bs-ride="carousel">
+              <div className="carousel-inner px-2 py-3">
+                {slides.map((slide, index) => (
+                  <div
+                    key={index}
+                    className={`carousel-item ${index === 0 ? "active" : ""}`}
+                  >
+                    <div className="row">
+                      {slide.map(job => (
+                        <div key={job._id} className="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                          <div className="job-card-wrapper h-100">
+                            <div className="custom-job-card h-100 d-flex flex-column">
+                              <span className="badge bg-primary bg-opacity-10 text-primary w-auto me-auto mb-3">Actively Hiring</span>
+                              <h6>{job.title}</h6>
+                              <p className="company-name">{job.company}</p>
 
-                            <div className="job-details mt-auto">
-                              <p className="mb-1"><i className="bi bi-geo-alt"></i> {job.location}</p>
-                              <p className="mb-0"><i className="bi bi-cash-stack"></i> {job.salary}</p>
-                            </div>
+                              <div className="job-details mt-auto">
+                                <p className="mb-1"><i className="bi bi-geo-alt"></i> {job.location}</p>
+                                <p className="mb-0"><i className="bi bi-cash-stack"></i> {job.salary}</p>
+                              </div>
 
-                            <div className="card-footer-custom">
-                              <span className="badge bg-light text-secondary border">Full Time</span>
-                              <Link to={`/jobs/${job.id}`} className="btn-view-details">
-                                View Details <i className="bi bi-arrow-right ms-1"></i>
-                              </Link>
+                              <div className="card-footer-custom">
+                                <span className="badge bg-light text-secondary border">{job.type || "Full-time"}</span>
+                                <Link to={`/jobs/${job._id}`} className="btn-view-details">
+                                  View Details <i className="bi bi-arrow-right ms-1"></i>
+                                </Link>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            {/* Controls */}
-            <button className="carousel-control-prev" type="button" data-bs-target="#jobCarousel" data-bs-slide="prev">
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button className="carousel-control-next" type="button" data-bs-target="#jobCarousel" data-bs-slide="next">
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
-              <span className="visually-hidden">Next</span>
-            </button>
-          </div>
-        ) : (
-          <div className="text-center py-5 text-muted">
-            <i className="bi bi-emoji-frown fs-1 d-block mb-3"></i>
-            <p>No jobs found in this category.</p>
-          </div>
+              {/* Controls */}
+              {slides.length > 1 && (
+                <>
+                  <button className="carousel-control-prev" type="button" data-bs-target="#jobCarousel" data-bs-slide="prev">
+                    <span className="carousel-control-prev-icon bg-primary rounded-circle p-2" aria-hidden="true" style={{ width: '35px', height: '35px', backgroundSize: '50%' }}></span>
+                    <span className="visually-hidden">Previous</span>
+                  </button>
+                  <button className="carousel-control-next" type="button" data-bs-target="#jobCarousel" data-bs-slide="next">
+                    <span className="carousel-control-next-icon bg-primary rounded-circle p-2" aria-hidden="true" style={{ width: '35px', height: '35px', backgroundSize: '50%' }}></span>
+                    <span className="visually-hidden">Next</span>
+                  </button>
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="text-center py-5 text-muted">
+              <i className="bi bi-emoji-frown fs-1 d-block mb-3"></i>
+              <p>No jobs found in this category.</p>
+            </div>
+          )
         )}
       </div>
     </div>

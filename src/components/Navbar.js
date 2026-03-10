@@ -34,6 +34,7 @@ function Navbar({ role, setRole }) {
     // Poll every 30 seconds for new notifications
     const interval = setInterval(fetchNotifications, 30000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?._id]); // Depend on user ID
 
   const handleLogout = () => {
@@ -216,7 +217,7 @@ function Navbar({ role, setRole }) {
                     aria-label="Search"
                   />
                 </form>
-                
+
                 <div className="header_vertical_partition"></div>
                 <button type="button" className="btn login-btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
                 <button
@@ -225,13 +226,6 @@ function Navbar({ role, setRole }) {
                   onClick={() => navigate("/signup")}
                 >
                   Register
-                </button>
-                <button
-                  type="button"
-                  className="btn login-btn"
-                  onClick={() => navigate("/admin-login")}
-                >
-                  Admin Portal
                 </button>
                 <div className="header_vertical_partition"></div>
                 <Link to="/employer/signup" className="employer-link">Employer sign up <span><i className="bi bi-chevron-right"></i></span></Link>

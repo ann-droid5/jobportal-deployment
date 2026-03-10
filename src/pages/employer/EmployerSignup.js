@@ -11,9 +11,39 @@ function EmployerSignup({ setRole }) {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
+    // Per-field validation errors
+    const [fieldErrors, setFieldErrors] = useState({});
+
+    const validateForm = () => {
+        const errors = {};
+
+        if (!company.trim()) {
+            errors.company = "Company name is required.";
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.trim()) {
+            errors.email = "Email is required.";
+        } else if (!emailRegex.test(email)) {
+            errors.email = "Please enter a valid email address.";
+        }
+
+        if (!password) {
+            errors.password = "Password is required.";
+        } else if (password.length < 6) {
+            errors.password = "Password must be at least 6 characters.";
+        }
+
+        setFieldErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
     const handleEmployerRegister = async (e) => {
         e.preventDefault();
         setError("");
+
+        if (!validateForm()) return;
+
         setLoading(true);
 
         try {
@@ -74,42 +104,56 @@ function EmployerSignup({ setRole }) {
 
                     {error && <div className="alert alert-danger">{error}</div>}
 
-                    <form onSubmit={handleEmployerRegister}>
+                    <form onSubmit={handleEmployerRegister} noValidate>
                         <div className="form-group">
                             <label>Company Name</label>
                             <input
                                 type="text"
-                                className="form-control-custom"
+                                className={`form-control-custom ${fieldErrors.company ? "input-error" : ""}`}
                                 placeholder="e.g. Google, Amazon"
                                 value={company}
-                                onChange={(e) => setCompany(e.target.value)}
-                                required
+                                onChange={(e) => {
+                                    setCompany(e.target.value);
+                                    setFieldErrors(prev => ({ ...prev, company: "" }));
+                                }}
                             />
+                            {fieldErrors.company && (
+                                <span className="field-error-msg">{fieldErrors.company}</span>
+                            )}
                         </div>
 
                         <div className="form-group">
                             <label>Official Email</label>
                             <input
                                 type="email"
-                                className="form-control-custom"
+                                className={`form-control-custom ${fieldErrors.email ? "input-error" : ""}`}
                                 placeholder="name@company.com"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                    setFieldErrors(prev => ({ ...prev, email: "" }));
+                                }}
                             />
+                            {fieldErrors.email && (
+                                <span className="field-error-msg">{fieldErrors.email}</span>
+                            )}
                         </div>
 
                         <div className="form-group">
                             <label>Password</label>
                             <input
                                 type="password"
-                                className="form-control-custom"
+                                className={`form-control-custom ${fieldErrors.password ? "input-error" : ""}`}
                                 placeholder="6+ characters"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                minLength={6}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setFieldErrors(prev => ({ ...prev, password: "" }));
+                                }}
                             />
+                            {fieldErrors.password && (
+                                <span className="field-error-msg">{fieldErrors.password}</span>
+                            )}
                         </div>
 
                         <button type="submit" className="btn-signup-custom" disabled={loading}>
@@ -117,14 +161,8 @@ function EmployerSignup({ setRole }) {
                         </button>
                     </form>
 
-                    <div className="login-link">
-                        Already have an account? <span className="text-primary" style={{ cursor: 'pointer' }} onClick={() => {
-                            const event = new CustomEvent('switchLoginTab', { detail: { tab: 'employer' } });
-                            window.dispatchEvent(event);
-
-                            const loginBtn = document.querySelector('[data-bs-target="#loginModal"]');
-                            if (loginBtn) loginBtn.click();
-                        }}>Login</span>
+                    <div className="login-link mt-4 text-center">
+                        Already have an account? <Link to="/employer/login" className="text-primary fw-bold text-decoration-none">Login Here</Link>
                     </div>
                 </div>
             </div>
@@ -133,3 +171,4 @@ function EmployerSignup({ setRole }) {
 }
 
 export default EmployerSignup;
+

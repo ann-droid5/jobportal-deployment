@@ -93,25 +93,35 @@ router.get("/job/:jobId", async (req, res) => {
 });
 
 const Notification = require("../models/Notification");
+const { sendNotificationEmail } = require("../utils/emailService");
 
-// ...
-
+// ...\r\n
 // PATCH /api/applications/:id/status - Update status
 router.patch("/:id/status", async (req, res) => {
     try {
         const { status } = req.body;
         const app = await Application.findByIdAndUpdate(req.params.id, { status }, { new: true })
             .populate("job", "title")
-            .populate("applicant", "firstName"); // Populate to get data if needed
+            .populate("applicant", "firstName lastName email");
 
-        // Create Notification for the Job Seeker
+        // Create in-app Notification for the Job Seeker
         const message = `Your application for ${app.job.title} has been updated to: ${status}`;
         await Notification.create({
             user: app.applicant._id,
             message,
             type: "info",
-            link: `/applications` // Redirect to applications page
+            link: `/applications`
         });
+
+        // Send real email notification to the applicant
+        if (app.applicant.email) {
+            sendNotificationEmail(
+                app.applicant.email,
+                app.applicant.firstName || "there",
+                message,
+                `/applications`
+            );
+        }
 
         res.json(app);
     } catch (error) {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../../api/axios";
+import "./EmployerPages.css";
 
 function ManageJobs() {
   const [jobs, setJobs] = useState([]);
@@ -30,38 +31,58 @@ function ManageJobs() {
   };
 
   return (
-    <div className="container mt-4">
-      <h3>Manage Jobs</h3>
+    <div className="employer-page-container">
+      <div className="page-header-modern">
+        <h3><i className="bi bi-briefcase-fill me-3 text-primary"></i>Manage Jobs</h3>
+      </div>
 
-      <table className="table mt-3">
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Applicants</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {jobs.map((job) => (
-            <tr key={job._id}>
-              <td>{job.title}</td>
-              <td>-</td>
-              <td>
-                <button className="btn btn-sm btn-outline-primary me-2">
-                  Edit
-                </button>
-                <button
-                  className="btn btn-sm btn-outline-danger"
-                  onClick={() => handleDelete(job._id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="table-glass-card">
+        {jobs.length === 0 ? (
+          <div className="empty-state-card">
+            <i className="bi bi-inbox"></i>
+            <h4>No Jobs Posted Yet</h4>
+            <p>Start posting jobs to see them listed here.</p>
+          </div>
+        ) : (
+          <div className="table-responsive">
+            <table className="modern-table align-middle">
+              <thead>
+                <tr>
+                  <th>Job Title</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {jobs.map((job) => (
+                  <tr key={job._id} className="modern-table-row">
+                    <td>
+                      <div className="job-title-highlight">{job.title}</div>
+                      <div className="text-muted small"><i className="bi bi-geo-alt-fill me-1"></i>{job.location || 'Remote'}</div>
+                    </td>
+                    <td>
+                      <span className="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">Active</span>
+                    </td>
+                    <td>
+                      <div className="d-flex gap-2">
+                        <button className="btn-action-glass edit">
+                          <i className="bi bi-pencil-square"></i> Edit
+                        </button>
+                        <button
+                          className="btn-action-glass delete"
+                          onClick={() => handleDelete(job._id)}
+                        >
+                          <i className="bi bi-trash-fill"></i> Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

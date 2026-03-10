@@ -36,6 +36,8 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    otp: String,
+    otpExpiry: Date,
     companyDetails: {
       website: String,
       location: String,

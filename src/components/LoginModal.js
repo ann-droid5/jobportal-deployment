@@ -62,13 +62,22 @@ function LoginModal({ setRole }) {
         }
       );
 
+      const userRole = res.data.user.role;
+
+      // Allow jobseekers and admins
+      if (userRole !== "jobseeker" && userRole !== "admin") {
+        alert("This login is for students & admins. Employers should use the Employer login page.");
+        setLoading(false);
+        return;
+      }
+
       setSuccess(true);
-      setRole(res.data.user.role);
+      setRole(userRole);
       setUserName(res.data.user.firstName);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       setTimeout(() => {
-        navigate(res.data.user.role === "jobseeker" ? "/jobs" : "/employer");
+        navigate(userRole === "admin" ? "/admin" : "/jobs");
       }, 1500);
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
@@ -78,30 +87,33 @@ function LoginModal({ setRole }) {
   };
 
 
-  const handleGoogleLogin = () => {
-    setSuccess(true);
-    setRole(activeTab === "student" ? "jobseeker" : "employer");
+  const [newPassword, setNewPassword] = useState("");
+  const [otpMsg, setOtpMsg] = useState("");
 
-    console.log(`Google login successful for ${activeTab}`);
-
-    setTimeout(() => {
-      navigate(activeTab === "student" ? "/jobs" : "/employer");
-    }, 1500);
-  };
-  const handleSendOTP = () => {
-    console.log(`
-    📧 OTP SENT
-    To: ${email}
-    OTP: 123456
-  `);
-    setStep("otp");
+  const handleSendOTP = async () => {
+    if (!email) { alert("Please enter your registered email"); return; }
+    try {
+      setLoading(true);
+      await api.post("/auth/forgot-password", { email });
+      setStep("otp");
+      setOtpMsg("OTP sent! Check your email inbox.");
+    } catch (err) {
+      alert(err.response?.data?.message || "Error sending OTP");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleVerifyOTP = () => {
-    if (otp === "123456") {
+  const handleVerifyOTP = async () => {
+    if (!otp || !newPassword) { alert("Enter OTP and new password"); return; }
+    try {
+      setLoading(true);
+      await api.post("/auth/verify-otp", { email, otp, newPassword });
       setStep("resetSuccess");
-    } else {
-      alert("Invalid OTP");
+    } catch (err) {
+      alert(err.response?.data?.message || "OTP verification failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -115,53 +127,37 @@ function LoginModal({ setRole }) {
             data-bs-dismiss="modal"
           ></button>
 
-          <div className="login-tabs">
-            <span
-              className={activeTab === "student" ? "active" : ""}
-              onClick={() => setActiveTab("student")}
-            >
-              Student
-            </span>
-            <span
-              className={activeTab === "employer" ? "active" : ""}
-              onClick={() => setActiveTab("employer")}
-            >
-              Employer / T&P
-            </span>
-          </div>
-
-          <div className="modal-body">
+          <div className="modal-body p-1">
 
             {/* LOGIN FORM */}
             {step === "login" && !success && (
               <>
-                <button className="google-login-btn" onClick={handleGoogleLogin}>
-                  <img
-                    src="https://img.icons8.com/color/20/google-logo.png"
-                    alt="google"
+                <div className="modal-header-custom">
+                  <h3>Welcome Back</h3>
+                  <p>Log in to Job Portal to continue your journey</p>
+                </div>
+
+                <div className="mb-3">
+                  <label><i className="bi bi-envelope-fill text-muted me-2"></i>Email Address</label>
+                  <input
+                    type="email"
+                    className="form-control form-control-login"
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  Login with Google
-                </button>
+                </div>
 
-                <div className="divider"><span>OR</span></div>
-
-                <label>Email</label>
-                <input
-                  type="email"
-                  className="form-control mb-2"
-                  placeholder="user@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <label>Password</label>
-                <input
-                  type="password"
-                  className="form-control mb-2"
-                  placeholder="********"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <div className="mb-3">
+                  <label><i className="bi bi-lock-fill text-muted me-2"></i>Password</label>
+                  <input
+                    type="password"
+                    className="form-control form-control-login"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
 
 
                 <div
@@ -176,13 +172,25 @@ function LoginModal({ setRole }) {
                   onClick={handleLogin}
                   disabled={loading}
                 >
-                  {loading ? "Logging in..." : "Login"}
+                  {loading ? (
+                    <><span className="spinner-border spinner-border-sm me-2"></span>Logging in...</>
+                  ) : (
+                    <><i className="bi bi-box-arrow-in-right me-2"></i>Login</>
+                  )}
                 </button>
 
 
                 <p className="register-text">
-                  New to Internshala? Register{" "}
-                  <Link to="/signup"><span>Student / Company</span></Link>
+                  New to Job Portal? Register{" "}
+                  <Link
+                    to="/signup"
+                    onClick={() => {
+                      const closeBtn = document.querySelector('#loginModal .btn-close');
+                      if (closeBtn) closeBtn.click();
+                    }}
+                  >
+                    <span>Jobseeker</span>
+                  </Link>
                 </p>
               </>
             )}
@@ -190,42 +198,62 @@ function LoginModal({ setRole }) {
             {/* FORGOT PASSWORD – EMAIL */}
             {step === "forgot" && (
               <>
-                <h6 className="text-center mb-3">Reset Password</h6>
+                <div className="modal-header-custom">
+                  <h3>Reset Password</h3>
+                  <p>Enter your email to receive an OTP</p>
+                </div>
 
-                <input
-                  type="email"
-                  className="form-control mb-3"
-                  placeholder="Enter registered email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <div className="mb-4">
+                  <input
+                    type="email"
+                    className="form-control form-control-login"
+                    placeholder="Enter registered email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
 
-                <button className="btn login-submit-btn" onClick={handleSendOTP}>
-                  Send OTP
+                <button className="btn login-submit-btn" onClick={handleSendOTP} disabled={loading}>
+                  {loading ? <span className="spinner-border spinner-border-sm"></span> : "Send OTP"}
                 </button>
+                <div className="text-center mt-3">
+                  <span className="text-primary" style={{ cursor: 'pointer', fontWeight: '600' }} onClick={() => setStep("login")}>Back to login</span>
+                </div>
               </>
             )}
 
             {/* OTP VERIFICATION */}
             {step === "otp" && (
               <>
-                <h6 className="text-center mb-3">Verify OTP</h6>
+                <div className="modal-header-custom">
+                  <h3>Verify OTP</h3>
+                  <p>Check your email for the code</p>
+                </div>
 
-                <input
-                  className="form-control mb-3"
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                />
+                {otpMsg && <div className="alert alert-success py-2 text-center small mb-3">{otpMsg}</div>}
 
-                <input
-                  type="password"
-                  className="form-control mb-3"
-                  placeholder="New Password"
-                />
+                <div className="mb-3">
+                  <input
+                    className="form-control form-control-login text-center letter-spacing-2"
+                    placeholder="Enter 6-digit OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    maxLength={6}
+                  />
+                </div>
 
-                <button className="btn login-submit-btn" onClick={handleVerifyOTP}>
-                  Verify OTP & Reset
+                <div className="mb-4">
+                  <input
+                    type="password"
+                    className="form-control form-control-login"
+                    placeholder="New Password (min 6 chars)"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </div>
+
+                <button className="btn login-submit-btn" onClick={handleVerifyOTP} disabled={loading}>
+                  {loading ? <span className="spinner-border spinner-border-sm"></span> : "Verify OTP & Reset"}
                 </button>
               </>
             )}

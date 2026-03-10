@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../../api/axios";
+import "./AdminPages.css";
 
 function ManageJobs() {
   const [jobs, setJobs] = useState([]);
@@ -27,37 +28,65 @@ function ManageJobs() {
   };
 
   return (
-    <div className="container mt-4">
-      <h3>Manage Job Postings</h3>
+    <div className="admin-page-container">
+      <div className="admin-header-modern">
+        <div>
+          <h2><i className="bi bi-briefcase-fill me-3 text-primary"></i>Manage Job Postings</h2>
+          <p className="text-secondary mb-0">Review and moderate all jobs on the platform</p>
+        </div>
+      </div>
 
-      <table className="table mt-3">
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {jobs.map((job) => (
-            <tr key={job._id}>
-              <td>{job.title}</td>
-              <td>{job.postedBy?.company || "Unknown"}</td>
-              <td>Active</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-outline-danger"
-                  onClick={() => handleDelete(job._id)}
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="admin-panel mt-4">
+        <div className="admin-panel-body p-4">
+          {jobs.length === 0 ? (
+            <div className="admin-empty-state">
+              <i className="bi bi-inbox"></i>
+              <h5 className="fw-bold text-dark">No Jobs Discovered</h5>
+              <p className="text-muted">There are currently no active job postings available.</p>
+            </div>
+          ) : (
+            <div className="table-responsive">
+              <table className="admin-table align-middle">
+                <thead>
+                  <tr>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {jobs.map((job) => (
+                    <tr key={job._id} className="admin-table-row">
+                      <td>
+                        <div className="fw-bold text-dark">{job.title}</div>
+                        <div className="text-muted small"><i className="bi bi-geo-alt-fill me-1"></i>{job.location || 'Location missing'}</div>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <i className="bi bi-building text-secondary me-2"></i>
+                          <span className="fw-semibold">{job.postedBy?.company || "Unknown Company"}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">Active</span>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-outline-danger fw-bold rounded-pill px-3"
+                          onClick={() => handleDelete(job._id)}
+                        >
+                          <i className="bi bi-trash3-fill me-1"></i> Remove
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

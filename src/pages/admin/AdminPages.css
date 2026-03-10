@@ -1,0 +1,259 @@
+.admin-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+}
+
+.admin-header-modern {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(135deg, #ffffff, #fdfbfb);
+    padding: 1.5rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-header-modern::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #007bff, #6610f2);
+}
+
+.admin-header-modern h2 {
+    font-weight: 800;
+    color: #1a202c;
+    margin: 0 0 0.25rem 0;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.admin-header-modern p {
+    margin: 0;
+}
+
+/* Stats Cards */
+.admin-stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.admin-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.admin-stat-card .stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    transition: transform 0.3s ease;
+}
+
+.admin-stat-card:hover .stat-icon {
+    transform: scale(1.1);
+}
+
+.admin-stat-card .stat-content h6 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.admin-stat-card .stat-content h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+/* Panels */
+.admin-panel {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    overflow: hidden;
+    height: 100%;
+    animation: slideFadeIn 0.5s ease-out;
+}
+
+.admin-panel-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #f1f5f9;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-panel-header h5 {
+    margin: 0;
+    font-weight: 700;
+    color: #334155;
+}
+
+.admin-panel-body {
+    padding: 2rem;
+}
+
+/* Decorative Background for Empty States */
+.admin-empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
+    border-radius: 12px;
+    border: 2px dashed #cbd5e1;
+}
+
+.admin-empty-state i {
+    font-size: 4rem;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+/* Common Table Styles based on EmployerPages.css but tweaked */
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    margin-top: -8px;
+}
+
+.admin-table th {
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 1rem 1.5rem;
+    border: none;
+}
+
+.admin-table th:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.admin-table th:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.admin-table-row {
+    transition: all 0.2s;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.admin-table-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+    z-index: 2;
+    position: relative;
+}
+
+.admin-table-row td {
+    padding: 1rem 1.5rem;
+    vertical-align: middle;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-table-row td:first-child {
+    border-left: 1px solid #f1f5f9;
+    border-radius: 8px 0 0 8px;
+}
+
+.admin-table-row td:last-child {
+    border-right: 1px solid #f1f5f9;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Filter Buttons */
+.admin-filter-btn {
+    border-radius: 8px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+/* User Avatar */
+.admin-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes slideFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom list items for Reports/Actions */
+.admin-list-item {
+    display: flex;
+    align-items: center;
+    padding: 1.25rem;
+    border-radius: 12px;
+    transition: all 0.2s;
+    border: 1px solid #f1f5f9;
+    margin-bottom: 0.5rem;
+    background: white;
+}
+
+.admin-list-item:hover {
+    background: #f8fafc;
+    transform: translateX(5px);
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.admin-list-item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}

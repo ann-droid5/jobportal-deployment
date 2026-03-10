@@ -132,6 +132,20 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
+/* Validation error styles */
+.input-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.field-error-msg {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
 .btn-signup-custom {
   width: 100%;
   padding: 0.875rem;
@@ -171,7 +185,7 @@
   .employer-signup-container {
     flex-direction: column;
   }
-  
+
   .employer-signup-left {
     padding: 3rem;
     min-height: auto;

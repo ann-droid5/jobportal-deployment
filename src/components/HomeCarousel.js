@@ -1,6 +1,6 @@
 import banner1 from '../assets/banner1.png'
-import banner2 from '../assets/banner2.png'
-import banner3 from '../assets/banner3.png'
+import banner21 from '../assets/banner21.png'
+import banner22 from '../assets/banner22.png'
 
 function HomeCarousel() {
   return (
@@ -21,7 +21,7 @@ function HomeCarousel() {
 
         <div className="carousel-item">
           <img
-            src={banner2}
+            src={banner21}
             className="d-block w-100"
             alt="Slide 2"
           />
@@ -29,7 +29,7 @@ function HomeCarousel() {
 
         <div className="carousel-item">
           <img
-            src={banner3}
+            src={banner22}
             className="d-block w-100"
             alt="Slide 3"
           />

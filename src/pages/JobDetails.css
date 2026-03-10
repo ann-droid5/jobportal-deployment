@@ -1,61 +1,306 @@
-.job-details-page {
-  max-width: 900px;
+/* d:\React\jobportalapp\src\pages\JobDetails.css */
+
+.job-details-page-wrapper {
+  min-height: calc(100vh - 80px);
+  /* Adjust based on navbar height */
+  background-color: #f8fafc;
+  padding-bottom: 60px;
 }
 
-.job-details-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px;
-  border: 1px solid #eaeaea;
+/* Hero Section */
+.job-details-hero {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px;
 }
 
-.hiring-badge {
-  background: #1e88ff;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
+.job-details-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
 }
 
-.company {
+.back-link-custom {
+  color: #94a3b8;
+  text-decoration: none;
   font-weight: 500;
-  color: #555;
+  display: inline-block;
+  margin-bottom: 25px;
+  transition: color 0.2s;
+  position: relative;
+  z-index: 2;
 }
 
-.job-meta {
-  display: flex;
-  gap: 20px;
-  margin: 12px 0;
-  font-size: 14px;
+.back-link-custom:hover {
+  color: white;
 }
 
-.skills {
+.job-hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+  letter-spacing: -0.5px;
+}
+
+.job-hero-company {
+  font-size: 1.25rem;
+  color: #bfdbfe;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
   display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-hiring-custom {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+/* Glassmorphism Cards */
+.jd-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.jd-card-header {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
 }
 
-.skill-pill {
-  border: 1px solid #1e88ff;
-  color: #1e88ff;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 13px;
+.jd-card-header i {
+  color: #3b82f6;
+  font-size: 1.4rem;
 }
 
-.apply-btn {
+/* Content Styling */
+.jd-content-text {
+  color: #475569;
+  line-height: 1.7;
+  font-size: 1.05rem;
+  white-space: pre-wrap;
+}
+
+.jd-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.jd-meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.jd-meta-icon {
+  background-color: #eff6ff;
+  color: #3b82f6;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.jd-meta-info h6 {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.jd-meta-info p {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* Skills */
+.jd-skill-pill {
   display: inline-block;
-  margin-top: 20px;
-  background: #1e88ff;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-decoration: none;
+  background-color: #f8fafc;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: 500;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  transition: all 0.2s;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 16px;
-  text-decoration: none;
-  color: #1e88ff;
+.jd-skill-pill:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+/* Sticky Action Sidebar */
+.jd-action-sidebar {
+  position: sticky;
+  top: 100px;
+  /* offset from navbar */
+}
+
+.jd-action-card {
+  text-align: center;
+}
+
+.apply-btn-master {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  border: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 15px 30px;
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 15px;
+}
+
+.apply-btn-master:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 20px -3px rgba(37, 99, 235, 0.4);
+}
+
+.save-job-btn {
+  background: white;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 12px;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.save-job-btn:hover {
+  background-color: #f8fafc;
+  color: #1e293b;
+  border-color: #94a3b8;
+}
+
+.company-box {
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+}
+
+.company-logo-placeholder {
+  width: 50px;
+  height: 50px;
+  background-color: #e2e8f0;
+  color: #64748b;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Application Form Styling */
+.apply-form-container {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 30px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.form-label-custom {
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.form-control-custom {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 12px;
+  transition: all 0.2s;
+}
+
+.form-control-custom:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.radio-custom-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.radio-custom-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.radio-custom-label:hover {
+  border-color: #94a3b8;
+  background-color: #f1f5f9;
+}
+
+.form-check-input:checked+.radio-custom-label {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+  box-shadow: inset 0 0 0 1px #3b82f6;
+  color: #1e293b;
+  font-weight: 500;
 }

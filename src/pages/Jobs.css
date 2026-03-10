@@ -1,0 +1,189 @@
+/* d:\React\jobportalapp\src\pages\Jobs.css */
+
+.jobs-page-container {
+    min-height: 100vh;
+    background-color: #f8f9fc;
+    /* Very light cool grey */
+    padding-bottom: 4rem;
+}
+
+/* Page Header */
+.jobs-page-header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    padding: 60px 0;
+    color: white;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.jobs-page-header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+}
+
+.jobs-header-title {
+    font-weight: 800;
+    font-size: 2.5rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 15px;
+}
+
+.jobs-header-subtitle {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Search Box */
+.jobs-search-box {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%);
+    margin-bottom: -30px;
+    position: relative;
+    z-index: 10;
+    border: 1px solid #e2e8f0;
+}
+
+.search-input-group {
+    position: relative;
+}
+
+.search-icon-left {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    z-index: 5;
+}
+
+.search-control-custom {
+    padding-left: 45px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    height: 50px;
+    font-size: 1rem;
+    transition: all 0.2s;
+    background-color: #f8fafc;
+}
+
+.search-control-custom:focus {
+    background-color: #ffffff;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.search-btn-custom {
+    height: 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    border: none;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    transition: all 0.2s;
+}
+
+.search-btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* No Results State */
+.no-jobs-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 16px;
+    border: 1px dashed #cbd5e1;
+}
+
+.no-jobs-icon {
+    font-size: 4rem;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+/* Loader */
+.jobs-loader-container {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+}
+
+/* AI Recommended Section */
+.recommended-section-wrapper {
+    background: linear-gradient(145deg, #ffffff 0%, #fcf8ff 100%);
+    border: 1px solid #f3e8ff;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 10px 40px -10px rgba(147, 51, 234, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.recommended-section-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.recommended-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #7e22ce, #c026d3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+/* Custom Scrollbar for horizontal scrolling */
+.custom-scrollbar::-webkit-scrollbar {
+    height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.ai-match-badge {
+    background: linear-gradient(135deg, #FDFBF0 0%, #F5E6A3 40%, #E8B923 100%);
+    color: #5C4300;
+    border: 1px solid #E8B923;
+    box-shadow: 0 4px 12px rgba(232, 185, 35, 0.3);
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 6px 16px !important;
+    z-index: 10;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+}

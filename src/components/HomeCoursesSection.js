@@ -66,10 +66,11 @@ function HomeCoursesSection() {
 
                 <div className="d-flex justify-content-between align-items-center mb-4 px-2">
                     <h2 className="fw-bold m-0">Explore Our Courses</h2>
-                    <Link to="/courses/full-stack-web-development" className="text-decoration-none fw-bold">View all courses <i className="bi bi-arrow-right"></i></Link>
+
                 </div>
 
                 <div className="position-relative">
+
                     <button
                         className="scroll-btn scroll-left"
                         onClick={() => document.querySelector('.courses-slider').scrollBy({ left: -300, behavior: 'smooth' })}

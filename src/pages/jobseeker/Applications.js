@@ -66,7 +66,9 @@ function Applications() {
                           <i className="bi bi-briefcase-fill"></i>
                         </div>
                         <div>
-                          <div className="fw-bold text-dark">{app.job?.title}</div>
+                          <a href={`/jobs/${app.job?._id}`} className="fw-bold text-dark text-decoration-none hover-primary">
+                            {app.job?.title}
+                          </a>
                           <div className="small text-muted d-md-none">{app.job?.postedBy?.company}</div>
                         </div>
                       </div>
@@ -94,6 +96,9 @@ function Applications() {
         }
         .border-dashed {
             border-style: dashed !important;
+        }
+        .hover-primary:hover {
+            color: #3b82f6 !important;
         }
       `}</style>
     </div>

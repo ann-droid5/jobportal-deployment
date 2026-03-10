@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../../api/axios";
+import "./EmployerPages.css";
+
 function Applicants() {
   const [jobs, setJobs] = useState([]);
   const [selectedJobId, setSelectedJobId] = useState("");
@@ -47,93 +49,114 @@ function Applicants() {
     }
   };
 
-  return (
-    <div className="container mt-4">
-      <h3>Applicants</h3>
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'Rejected': return 'bg-danger bg-opacity-10 text-danger';
+      case 'Hired': return 'bg-success bg-opacity-10 text-success';
+      case 'Shortlisted': return 'bg-primary bg-opacity-10 text-primary';
+      case 'Interview Scheduled': return 'bg-warning bg-opacity-10 text-warning';
+      case 'Viewed': return 'bg-info bg-opacity-10 text-info';
+      default: return 'bg-secondary bg-opacity-10 text-secondary';
+    }
+  };
 
-      <div className="mb-3">
-        <label className="form-label">Select Job:</label>
+  return (
+    <div className="employer-page-container">
+      <div className="page-header-modern">
+        <h3><i className="bi bi-people-fill me-3 text-primary"></i>Applicants</h3>
+      </div>
+
+      <div className="job-select-wrapper">
+        <label className="form-label fw-bold text-secondary mb-2">Select Job Listing:</label>
         <select
-          className="form-select"
+          className="form-select minimal-select"
           value={selectedJobId}
           onChange={(e) => setSelectedJobId(e.target.value)}
         >
           {jobs.map(job => (
             <option key={job._id} value={job._id}>{job.title}</option>
           ))}
+          {jobs.length === 0 && <option>No jobs available</option>}
         </select>
       </div>
 
-      <div className="table-responsive">
-        <table className="table table-hover mt-3 align-middle">
-          <thead className="table-light">
-            <tr>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Resume</th>
-              <th>Cover Message</th>
-              <th>Update Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {applicants.length === 0 ? (
-              <tr><td colSpan="5" className="text-center">No applicants found for this job.</td></tr>
-            ) : (
-              applicants.map((a) => (
-                <tr key={a._id}>
-                  <td>
-                    <div className="fw-bold">{a.applicant.firstName} {a.applicant.lastName}</div>
-                    <div className="text-muted small">{a.applicant.email}</div>
-                  </td>
-                  <td>
-                    <span className={`badge bg-${a.status === 'Rejected' ? 'danger' : a.status === 'Hired' ? 'success' : 'info'}`}>
-                      {a.status}
-                    </span>
-                  </td>
-
-                  {/* RESUME ACTIONS */}
-                  <td>
-                    {a.resume ? (
-                      <a
-                        href={a.resume.startsWith("http") ? a.resume : `http://localhost:5000${a.resume}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-sm btn-outline-primary"
-                      >
-                        View PDF
-                      </a>
-                    ) : (
-                      <span className="text-muted small">N/A</span>
-                    )}
-                  </td>
-
-                  <td>
-                    <div className="small text-muted" style={{ maxWidth: "200px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={a.message}>
-                      {a.message || "No message"}
-                    </div>
-                  </td>
-
-                  {/* STATUS UPDATE */}
-                  <td>
-                    <select
-                      className="form-select form-select-sm"
-                      value={a.status}
-                      onChange={(e) => handleStatusChange(a._id, e.target.value)}
-                    >
-                      <option>Applied</option>
-                      <option>Viewed</option>
-                      <option>Shortlisted</option>
-                      <option>Interview Scheduled</option>
-                      <option>Hired</option>
-                      <option>Rejected</option>
-                    </select>
-                  </td>
+      <div className="table-glass-card">
+        {applicants.length === 0 ? (
+          <div className="empty-state-card">
+            <i className="bi bi-person-x"></i>
+            <h4>No Applicants Found</h4>
+            <p>No one has applied to this job listing yet.</p>
+          </div>
+        ) : (
+          <div className="table-responsive">
+            <table className="modern-table align-middle">
+              <thead>
+                <tr>
+                  <th>Applicant Profile</th>
+                  <th>Status</th>
+                  <th>Resume</th>
+                  <th>Cover Message</th>
+                  <th>Update Status</th>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {applicants.map((a) => (
+                  <tr key={a._id} className="modern-table-row">
+                    <td>
+                      <div className="d-flex align-items-center gap-3">
+                        <div className="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style={{ width: "45px", height: "45px", fontWeight: "bold", fontSize: "1.2rem" }}>
+                          {a.applicant.firstName.charAt(0)}{a.applicant.lastName.charAt(0)}
+                        </div>
+                        <div>
+                          <div className="job-title-highlight fs-6 m-0">{a.applicant.firstName} {a.applicant.lastName}</div>
+                          <div className="text-muted small"><i className="bi bi-envelope me-1"></i>{a.applicant.email}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className={`badge px-3 py-2 rounded-pill ${getStatusBadge(a.status)}`}>
+                        {a.status}
+                      </span>
+                    </td>
+                    <td>
+                      {a.resume ? (
+                        <a
+                          href={a.resume.startsWith("http") ? a.resume : `http://localhost:5000${a.resume}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-action-glass edit text-decoration-none"
+                        >
+                          <i className="bi bi-file-earmark-pdf-fill"></i> View
+                        </a>
+                      ) : (
+                        <span className="badge bg-light text-dark border">N/A</span>
+                      )}
+                    </td>
+                    <td>
+                      <div className="small text-muted" style={{ maxWidth: "200px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={a.message}>
+                        {a.message || "No message provided"}
+                      </div>
+                    </td>
+                    <td>
+                      <select
+                        className="form-select minimal-select form-select-sm"
+                        value={a.status}
+                        onChange={(e) => handleStatusChange(a._id, e.target.value)}
+                      >
+                        <option>Applied</option>
+                        <option>Viewed</option>
+                        <option>Shortlisted</option>
+                        <option>Interview Scheduled</option>
+                        <option>Hired</option>
+                        <option>Rejected</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

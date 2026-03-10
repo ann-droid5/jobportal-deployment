@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import api from "../api/axios";
+import signupBg from "../assets/signup_bg.png";
 
 function Signup({ setRole }) {
   const navigate = useNavigate();
@@ -12,36 +13,26 @@ function Signup({ setRole }) {
   const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(false);
 
-
-  // Simulated normal signup
   const handleSignup = async () => {
     if (!email || !password || !firstName || !lastName) {
       alert("Please fill all fields");
       return;
     }
-
     if (password.length < 6) {
       alert("Password must be at least 6 characters");
       return;
     }
-
     try {
       setLoading(true);
-
-      const res = await api.post(
-        "/auth/signup",
-        {
-          email,
-          password,
-          firstName,
-          lastName,
-        }
-      );
-
+      const res = await api.post("/auth/signup", {
+        email,
+        password,
+        firstName,
+        lastName,
+      });
       setRole(res.data.user.role);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       setSuccess(true);
-
       setTimeout(() => {
         navigate("/profile");
       }, 2000);
@@ -52,37 +43,14 @@ function Signup({ setRole }) {
     }
   };
 
-
-
-  // Simulated Google signup
-  const handleGoogleSignup = () => {
-    const googleEmail = "googleuser@gmail.com";
-
-    setEmail(googleEmail);
-    setRole("jobseeker");
-    setSuccess(true);
-
-    console.log(`
-      📧 EMAIL SENT
-      To: ${googleEmail}
-      Subject: Google Sign-in Successful
-      Body: You have signed up using Google successfully.
-    `);
-
-    setTimeout(() => {
-      navigate("/profile");
-    }, 2000);
-  };
-
   return (
-    <div className="signup-page">
+    <div className="signup-page" style={{ backgroundImage: `url(${signupBg})` }}>
       <div className="signup-container">
-
         <h1 className="signup-title">
           Sign-up and <span>apply for free</span>
         </h1>
         <p className="signup-subtitle">
-          3,00,000+ companies hiring on Internshala
+          3,00,000+ companies hiring on Job Portal
         </p>
 
         <div className="signup-card">
@@ -90,19 +58,6 @@ function Signup({ setRole }) {
 
           {!success ? (
             <>
-              {/* Google signup */}
-              <button className="google-btn" onClick={handleGoogleSignup}>
-                <img
-                  src="https://img.icons8.com/color/20/google-logo.png"
-                  alt="google"
-                />
-                Sign up with Google
-              </button>
-
-              <div className="divider">
-                <span>OR</span>
-              </div>
-
               <div className="mb-3">
                 <label>Email</label>
                 <input
@@ -123,7 +78,6 @@ function Signup({ setRole }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-
               </div>
 
               <div className="row mb-3">
@@ -135,7 +89,6 @@ function Signup({ setRole }) {
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
-
                 </div>
                 <div className="col">
                   <label>Last Name</label>
@@ -145,7 +98,6 @@ function Signup({ setRole }) {
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                   />
-
                 </div>
               </div>
 
@@ -156,12 +108,11 @@ function Signup({ setRole }) {
               >
                 {loading ? "Signing up..." : "Sign up"}
               </button>
-
             </>
           ) : (
             <div className="alert alert-success text-center">
               ✅ Registered successfully <br />
-              📧 Confirmation email sent
+              📧 A welcome email has been sent to your inbox!
             </div>
           )}
 
@@ -171,7 +122,14 @@ function Signup({ setRole }) {
           </p>
 
           <p className="login-text">
-            Already registered? <a href="/">Login</a>
+            Already registered?{" "}
+            <span
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+              style={{ color: "#00a5ec", fontWeight: 500, cursor: "pointer" }}
+            >
+              Login
+            </span>
           </p>
         </div>
 

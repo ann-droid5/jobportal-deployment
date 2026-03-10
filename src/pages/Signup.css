@@ -1,9 +1,13 @@
 .signup-page {
   min-height: 100vh;
-  background: #ffffff;
+  background-color: #f0f6ff;
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   padding-top: 60px;
+  padding-bottom: 40px;
 }
 
 .signup-container {
