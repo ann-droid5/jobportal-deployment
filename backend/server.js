@@ -1,13 +1,20 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
+
 
 const app = express();
 
 // middlewares
+const cors = require("cors");
+
 app.use(cors({
-  origin: "https://jobportal-deployment.vercel.app/"
+  origin: [
+    "http://localhost:3000",
+    "https://jobportal-deployment.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 app.use(express.json());
 
