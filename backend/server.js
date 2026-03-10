@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 
 // connect MongoDB
 mongoose
-  .connect("mongodb://127.0.0.1:27017/jobportal")
+  .connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("MongoDB connected ✅");
     // Create default admin if not exists
