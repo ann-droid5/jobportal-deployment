@@ -3,94 +3,77 @@ const { Resend } = require("resend");
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.log("SMTP Error:", error);
-  } else {
-    console.log("SMTP Ready");
-  }
-});
 
 console.log("EMAIL USER:", process.env.EMAIL_USER);
 // Welcome email after signup
 const sendWelcomeEmail = async (to, name) => {
   try {
-    await transporter.sendMail({
-      from: `"Job Portal" <${process.env.EMAIL_USER}>`,
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
       to,
       subject: "Welcome to Job Portal! 🎉",
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px;border:1px solid #e0e0e0;border-radius:8px;">
           <h2 style="color:#2563eb;">Welcome, ${name}! 👋</h2>
-          <p>Thank you for registering at <strong>Job Portal</strong>. Your account has been created successfully.</p>
-          <p>You can now browse thousands of jobs and apply with ease.</p>
-          <a href="http://localhost:3000" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#2563eb;color:#fff;border-radius:6px;text-decoration:none;font-weight:bold;">Go to Job Portal</a>
-          <p style="margin-top:24px;color:#6b7280;font-size:13px;">If you did not create this account, please ignore this email.</p>
+          <p>Thank you for registering at <strong>Job Portal</strong>.</p>
+          <a href="https://jobportal-deployment.vercel.app"
+             style="display:inline-block;margin-top:16px;padding:12px 24px;background:#2563eb;color:#fff;border-radius:6px;text-decoration:none;">
+             Go to Job Portal
+          </a>
         </div>
       `,
     });
+
     console.log(`✅ Welcome email sent to ${to}`);
   } catch (err) {
-    console.error("❌ Welcome email error:", err.message);
+    console.error("❌ Welcome email error:", err);
   }
 };
 
 // OTP email for forgot password
 const sendOTPEmail = async (to, otp) => {
   try {
-    await transporter.sendMail({
-      from: `"Job Portal" <${process.env.EMAIL_USER}>`,
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
       to,
       subject: "Your OTP for Password Reset",
       html: `
-        <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px;border:1px solid #e0e0e0;border-radius:8px;">
-          <h2 style="color:#2563eb;">Password Reset OTP</h2>
-          <p>You requested a password reset. Use the OTP below. It is valid for <strong>10 minutes</strong>.</p>
-          <div style="font-size:36px;font-weight:bold;letter-spacing:8px;color:#1e40af;text-align:center;padding:20px;background:#eff6ff;border-radius:8px;margin:16px 0;">
-            ${otp}
-          </div>
-          <p style="color:#6b7280;font-size:13px;">If you did not request this, please ignore this email. Your password will remain unchanged.</p>
+        <div style="font-family:Arial;">
+          <h2>Password Reset OTP</h2>
+          <h1>${otp}</h1>
+          <p>This OTP is valid for 10 minutes.</p>
         </div>
       `,
     });
+
     console.log(`✅ OTP email sent to ${to}`);
   } catch (err) {
-    console.error("❌ OTP email error:", err.message);
+    console.error("❌ OTP email error:", err);
   }
 };
 
 // Notification email when application status changes
 const sendNotificationEmail = async (to, name, message, link) => {
   try {
-    await transporter.sendMail({
-      from: `"Job Portal" <${process.env.EMAIL_USER}>`,
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
       to,
-      subject: "Update on Your Job Application 📋",
+      subject: "Job Application Update 📋",
       html: `
-        <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:20px;border:1px solid #e0e0e0;border-radius:8px;">
-          <h2 style="color:#2563eb;">Hi ${name},</h2>
+        <div>
+          <h2>Hi ${name}</h2>
           <p>${message}</p>
-          <a href="http://localhost:3000${link}" style="display:inline-block;margin-top:16px;padding:12px 24px;background:#2563eb;color:#fff;border-radius:6px;text-decoration:none;font-weight:bold;">View Application</a>
-          <p style="margin-top:24px;color:#6b7280;font-size:13px;">You are receiving this because you applied through Job Portal.</p>
+          <a href="https://jobportal-deployment.vercel.app${link}">
+            View Application
+          </a>
         </div>
       `,
     });
+
     console.log(`✅ Notification email sent to ${to}`);
   } catch (err) {
-    console.error("❌ Notification email error:", err.message);
+    console.error("❌ Notification email error:", err);
   }
 };
 
