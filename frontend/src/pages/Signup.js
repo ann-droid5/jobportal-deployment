@@ -110,9 +110,14 @@ function Signup({ setRole }) {
               </button>
             </>
           ) : (
-            <div className="alert alert-success text-center">
-              ✅ Registered successfully <br />
-              📧 A welcome email has been sent to your inbox!
+            <div className="success-view mt-4">
+              <div className="success-icon-container">
+                <i className="bi bi-envelope-check-fill"></i>
+              </div>
+              <h3>Registration Successful!</h3>
+              <p>
+                We're excited to have you on board! A welcome email containing further instructions has been sent to your inbox.
+              </p>
             </div>
           )}
 

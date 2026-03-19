@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./LoginModal.css";
 
 function RegisterModal({ setRole }) {
   const [success, setSuccess] = useState(false);
@@ -80,8 +81,12 @@ function RegisterModal({ setRole }) {
 
             {/* SUCCESS */}
             {success && (
-              <div className="alert alert-success text-center">
-                Registered successfully
+              <div className="success-view">
+                <div className="success-icon-container">
+                  <i className="bi bi-check-circle-fill"></i>
+                </div>
+                <h3>Registration Successful!</h3>
+                <p>You have successfully registered to Job Portal.</p>
               </div>
             )}
 

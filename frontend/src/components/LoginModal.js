@@ -260,9 +260,18 @@ function LoginModal({ setRole }) {
 
             {/* RESET SUCCESS */}
             {step === "resetSuccess" && (
-              <div className="alert alert-success text-center">
-                ✅ Password reset successful <br />
-                Please login again
+              <div className="success-view">
+                <div className="success-icon-container">
+                  <i className="bi bi-shield-check"></i>
+                </div>
+                <h3>Reset Successful</h3>
+                <p>Your password has been securely updated. You can now log in with your new credentials.</p>
+                <button 
+                  className="btn login-submit-btn mt-3" 
+                  onClick={() => setStep("login")}
+                >
+                  <i className="bi bi-box-arrow-in-right me-2"></i>Proceed to Login
+                </button>
               </div>
             )}
 
